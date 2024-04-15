@@ -1,15 +1,21 @@
+class Node:
+    def __init__(self, item, next=None):
+        self.item = item
+        self.next = next
 class Stack:
     def __init__(self):
-        self.items = []
-    def push(self, item):
-        self.items.append(item)
-    def pop(self):
-        return self.items.pop()
-    def peek(self):
-        return self.items[-1]
+        self.head = None
     def is_empty(self):
-        return len(self.items) == 0
-    
+        return self.head is None
+    def push(self, item):
+        self.head = Node(item, self.head)
+    def pop(self):
+        item = self.head.item
+        self.head = self.head.next
+        return item
+    @property
+    def peek(self):
+        return self.head.item
 class MyQueue:
     def __init__(self):
         self.stack1=Stack()
@@ -26,7 +32,7 @@ class MyQueue:
         return self.stack2.pop()
     def peek(self):
         if not self.stack2.is_empty():
-            return self.stack2.peek()
+            return self.stack2.peek
         return self.front
     def empty(self) -> bool:
         return self.stack1.is_empty() and self.stack2.is_empty()
